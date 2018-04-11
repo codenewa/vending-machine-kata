@@ -98,5 +98,21 @@ namespace Tests
             VendingMachine.Products.Where(p => p.Name.Equals("Chips")).ToList().ShouldNotBeEmpty();
             VendingMachine.Products.Where(p => p.Name.Equals("Candy")).ToList().ShouldNotBeEmpty();
         }
+
+
+        [Fact]
+        public void WhenProductIsSelectedAndThereIsEnoughBalanceItReturnsProductAndThankYouMessage()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+
+            var response = VendingMachine.SelectProduct(ProductCode.Cola);
+            response.Product.ShouldNotBeNull();
+            response.Product.Code.ShouldBe(ProductCode.Cola);
+            response.Message.ShouldBe("THANK YOU");
+
+        }
     }
 }

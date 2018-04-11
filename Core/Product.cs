@@ -6,5 +6,6 @@ namespace Core
     {
         public double Cost { get; set; }
         public string Name { get; set; }
+        public ProductCode Code { get; set; }
     }
 }

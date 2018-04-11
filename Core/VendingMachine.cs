@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core
 {
@@ -30,20 +31,37 @@ namespace Core
         }
 
 
+        public VendingMachineResponse SelectProduct(ProductCode code)
+        {
+            if (this.Products.Select(p => p.Code).Count() > 0)
+            {
+                var product = this.Products.First(p=>p.Code== code);
+                var response = new VendingMachineResponse(){
+                    Message="THANK YOU",
+                    Product = product
+                };
+
+                return response;
+            }
+            else
+                return null;
+        }
+
+
         private void InitializeMachineWithProducts()
         {
             for (var i = 0; i < 5; i++)
             {
-                this.Products.Add(new Product() { Cost = 1d, Name = "Cola" });
+                this.Products.Add(new Product() { Cost = 1d, Name = "Cola", Code = ProductCode.Cola });
             }
             for (var i = 0; i < 6; i++)
             {
-                this.Products.Add(new Product() { Cost = 0.5d, Name = "Chips" });
+                this.Products.Add(new Product() { Cost = 0.5d, Name = "Chips", Code = ProductCode.Chips });
             }
 
             for (var i = 0; i < 6; i++)
             {
-                this.Products.Add(new Product() { Cost = 0.65d, Name = "Candy" });
+                this.Products.Add(new Product() { Cost = 0.65d, Name = "Candy", Code = ProductCode.Candy });
             }
         }
     }
