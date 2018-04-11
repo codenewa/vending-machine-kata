@@ -13,6 +13,7 @@ namespace Tests
         {
             var vendingMachine = new VendingMachine();
             vendingMachine.ShouldNotBeNull();
+            vendingMachine.CurrentTransaction.ShouldBeNull();
         }
 
         [Fact]
@@ -20,8 +21,21 @@ namespace Tests
         {
             var coin = new Coin(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight);
             var vendingMachine = new VendingMachine();
+            vendingMachine.InsertCoin(new Coin(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight));
 
+            vendingMachine.CurrentTransaction.ShouldNotBeNull();
         }
 
+
+        [Fact]
+        public void WhenAValidCoinIsAddedToVendingMachineATransactionIsStartedWithBalanceOfCoinValue()
+        {
+            var coin = new Coin(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight);
+            var vendingMachine = new VendingMachine();
+            vendingMachine.InsertCoin(new Coin(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight));
+
+            vendingMachine.CurrentTransaction.ShouldNotBeNull();
+            vendingMachine.CurrentTransaction.Balance.ShouldBe(Coin.QuarterValue);
+        }
     }
 }
