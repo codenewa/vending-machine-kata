@@ -3,6 +3,7 @@ using Xunit;
 using Shouldly;
 
 using Core;
+using System.Linq;
 
 namespace Tests
 {
@@ -86,6 +87,16 @@ namespace Tests
         {
             VendingMachine.InsertCoin(TestHelpers.Quarter);
             VendingMachine.GetCurrentBalance().ShouldBe("$0.25");
+        }
+
+        [Fact]
+        public void VendingMachineShouldHaveSelectableProducts()
+        {
+            VendingMachine.Products.ShouldNotBeNull();
+            VendingMachine.Products.ShouldNotBeEmpty();
+            VendingMachine.Products.Where(p => p.Name.Equals("Cola")).ToList().ShouldNotBeEmpty();
+            VendingMachine.Products.Where(p => p.Name.Equals("Chips")).ToList().ShouldNotBeEmpty();
+            VendingMachine.Products.Where(p => p.Name.Equals("Candy")).ToList().ShouldNotBeEmpty();
         }
     }
 }
