@@ -5793,11 +5793,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Study\\vending-machine-kata\\Tests\\Tests.csproj",
+      "projectUniqueName": "C:\\Study\\vending-machine-kata\\Tests\\Tests.csproj",
       "projectName": "Tests",
-      "projectPath": "c:\\Study\\vending-machine-kata\\Tests\\Tests.csproj",
+      "projectPath": "C:\\Study\\vending-machine-kata\\Tests\\Tests.csproj",
       "packagesPath": "C:\\Users\\coden\\.nuget\\packages\\",
-      "outputPath": "c:\\Study\\vending-machine-kata\\Tests\\obj\\",
+      "outputPath": "C:\\Study\\vending-machine-kata\\Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5814,8 +5814,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "c:\\Study\\vending-machine-kata\\Core\\Core.csproj": {
-              "projectPath": "c:\\Study\\vending-machine-kata\\Core\\Core.csproj"
+            "C:\\Study\\vending-machine-kata\\Core\\Core.csproj": {
+              "projectPath": "C:\\Study\\vending-machine-kata\\Core\\Core.csproj"
             }
           }
         }
