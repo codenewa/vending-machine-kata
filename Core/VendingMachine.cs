@@ -7,7 +7,7 @@ namespace Core
     public class VendingMachine
     {
         public Transaction CurrentTransaction { get; set; }
-
+        private Product CurrentSelectedProduct { get; set; }
         public IList<Product> Products { get; set; }
 
         public VendingMachine()
@@ -27,10 +27,14 @@ namespace Core
 
         public VendingMachineResponse GetCurrentState()
         {
+            var message = this.CurrentTransaction.Balance.ToString("C2");
+            if(this.CurrentSelectedProduct != null)
+                message = $"PRICE: {CurrentSelectedProduct.Cost.ToString("C2")}. INSERT COIN.";
+
             return new VendingMachineResponse
             {
-                Product = null,
-                Message = CurrentTransaction?.Balance.ToString("C2") ?? "INSERT COIN"
+                Product = CurrentSelectedProduct,
+                Message = message
             };
         }
 
@@ -40,12 +44,13 @@ namespace Core
             if (this.Products.Select(p => p.Code).Count() > 0)
             {
                 var product = this.Products.First(p => p.Code == code);
+                CurrentSelectedProduct = product;
 
                 if (product.Cost > this.CurrentTransaction.Balance)
                 {
                     var errorResponse = new VendingMachineResponse()
                     {
-                        Message = "INSERT COIN",
+                        Message = $"PRICE: {product.Cost.ToString("C2")}. INSERT COIN.",
                         Product = product
                     };
                     return errorResponse;
@@ -60,6 +65,7 @@ namespace Core
                 this.Products.Remove(product);
 
                 this.CurrentTransaction = null;
+                this.CurrentSelectedProduct = null;
 
                 return response;
             }

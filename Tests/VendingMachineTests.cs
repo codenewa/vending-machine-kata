@@ -127,7 +127,7 @@ namespace Tests
             var response = VendingMachine.SelectProduct(ProductCode.Cola);
             response.Product.ShouldNotBeNull();
             response.Product.Code.ShouldBe(ProductCode.Cola);
-            response.Message.ShouldBe("INSERT COIN");
+            response.Message.ShouldBe("PRICE: $1.00. INSERT COIN.");
 
         }
 
@@ -144,7 +144,21 @@ namespace Tests
 
             var newColaCount = VendingMachine.Products.Count(p => p.Code == ProductCode.Cola);
 
-            newColaCount.ShouldBe(oldColaCount -1);
+            newColaCount.ShouldBe(oldColaCount - 1);
+        }
+
+        [Fact]
+        public void WhenGettingCurrentStateAfterNotEnoughBalanceItShowsProductAndBalanceMessage()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+
+            VendingMachine.SelectProduct(ProductCode.Cola);
+
+            var response = VendingMachine.GetCurrentState();
+            response.Message.ShouldBe("PRICE: $1.00. INSERT COIN.");
+            response.Product.Code.ShouldBe(ProductCode.Cola);
         }
     }
 }
