@@ -17,28 +17,17 @@ namespace Tests
             coin.Weight.ShouldBe(5.67);
         }
 
-        [Fact]
-        public void CoinReturnsQuarterForValidQuarter()
+        [Theory]
+        [InlineData(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight, CoinValue.Quarter)]
+        [InlineData(Coin.NickelDiameter, Coin.NickelWidth, Coin.NickelWeight, CoinValue.Nickel)]
+        [InlineData(Coin.DimeDiameter, Coin.DimeWidth, Coin.DimeWeight, CoinValue.Dime)]
+        [InlineData(Coin.QuarterDiameter, Coin.DimeWidth, Coin.NickelWeight, CoinValue.Invalid)]
+        public void CoinReturnsValueForValidCoid(double diameter, double width, double weight, CoinValue coinValue)
         {
-            var coin = new Coin(24.16, 1.75, 5.67);
+            var coin = new Coin(diameter, width, weight);
             var value = coin.Value;
-            value.ShouldBe(CoinValue.Quarter);
+            value.ShouldBe(coinValue);
         }
 
-        [Fact]
-        public void CoinReturnsNickelForValidNickel()
-        {
-            var coin = new Coin(21.21, 1.95, 5);
-            var value = coin.Value;
-            value.ShouldBe(CoinValue.Nickel);
-        }
-
-        [Fact]
-        public void CoinreturnsDimeForValidDime()
-        {
-            var coin = new Coin(17.91, 1.35, 2.268);
-            var value = coin.Value;
-            value.ShouldBe(CoinValue.Dime);
-        }
     }
 }
