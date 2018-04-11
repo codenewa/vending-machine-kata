@@ -80,5 +80,12 @@ namespace Tests
             }
             VendingMachine.CurrentTransaction.Balance.ShouldBe(Coin.QuarterValue);
         }
+
+        [Fact]
+        public void WhenCurrentBalanceIsRequestedItReturnsTheCurrentBalance()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.GetCurrentBalance().ShouldBe("$0.25");
+        }
     }
 }

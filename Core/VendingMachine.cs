@@ -15,5 +15,9 @@ namespace Core
             else
                 CurrentTransaction.AddBalance(coin.MonetaryValue);
         }
+
+        public string GetCurrentBalance(){
+            return this.CurrentTransaction.Balance.ToString("C2");
+        }
     }
 }
