@@ -41,10 +41,17 @@ namespace Tests
         [Fact]
         public void WhenAnInvalidCoinIsAddedToVendingMachineNoTransactionShouldBeStarted()
         {
-            var coin = new Coin(Coin.QuarterDiameter, Coin.DimeWidth, Coin.NickelWeight);
             var vendingMachine = new VendingMachine();
-            vendingMachine.InsertCoin(coin);
+            try
+            {
+                var coin = new Coin(Coin.QuarterDiameter, Coin.DimeWidth, Coin.NickelWeight);
 
+                vendingMachine.InsertCoin(coin);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ShouldBe("InvalidCoin");
+            }
             vendingMachine.CurrentTransaction.ShouldBeNull();
         }
     }

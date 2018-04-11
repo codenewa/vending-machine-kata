@@ -6,10 +6,11 @@ namespace Core
     {
         public Transaction CurrentTransaction { get; set; }
 
-        public void InsertCoin(Coin coin){
-            if(coin.Value != CoinValue.Invalid){
-                CurrentTransaction = new Transaction(coin);
-            }
+        public void InsertCoin(Coin coin)
+        {
+            if (coin.Value == CoinValue.Invalid)
+                throw new Exception("InvalidCoin");
+            CurrentTransaction = new Transaction(coin);
         }
     }
 }
