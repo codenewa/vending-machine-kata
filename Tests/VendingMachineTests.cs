@@ -114,5 +114,19 @@ namespace Tests
             response.Message.ShouldBe("THANK YOU");
 
         }
+
+        [Fact]
+        public void WhenProductIsSelectedAndThereIsNotEnoughBalanceItDoesNotReturnProductAndInsertCoinMessage()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+
+            var response = VendingMachine.SelectProduct(ProductCode.Cola);
+            response.Product.ShouldNotBeNull();
+            response.Product.Code.ShouldBe(ProductCode.Cola);
+            response.Message.ShouldBe("INSERT COIN");
+
+        }
     }
 }

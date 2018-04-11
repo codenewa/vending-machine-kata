@@ -36,11 +36,22 @@ namespace Core
             if (this.Products.Select(p => p.Code).Count() > 0)
             {
                 var product = this.Products.First(p=>p.Code== code);
+
+                if(product.Cost > this.CurrentTransaction.Balance){
+                    var errorResponse = new VendingMachineResponse(){
+                        Message="INSERT COIN",
+                        Product = product
+                    };
+                    return errorResponse;
+                }
+
                 var response = new VendingMachineResponse(){
                     Message="THANK YOU",
                     Product = product
                 };
-
+                
+                this.CurrentTransaction = null;
+                
                 return response;
             }
             else
