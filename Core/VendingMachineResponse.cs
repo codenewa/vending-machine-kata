@@ -6,5 +6,7 @@ namespace Core
     {
         public string Message { get; set; }
         public Product Product { get; set; }
+
+        public Change Change { get; set; }
     }
 }

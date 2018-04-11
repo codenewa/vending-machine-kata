@@ -172,6 +172,7 @@ namespace Tests
 
             var response = VendingMachine.SelectProduct(ProductCode.Cola);
 
+            response.Change.Value.ShouldBe(0.25d);
         }
     }
 }

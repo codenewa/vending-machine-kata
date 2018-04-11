@@ -28,7 +28,7 @@ namespace Core
         public VendingMachineResponse GetCurrentState()
         {
             var message = this.CurrentTransaction.Balance.ToString("C2");
-            if(this.CurrentSelectedProduct != null)
+            if (this.CurrentSelectedProduct != null)
                 message = $"PRICE: {CurrentSelectedProduct.Cost.ToString("C2")}. INSERT COIN.";
 
             return new VendingMachineResponse
@@ -59,8 +59,14 @@ namespace Core
                 var response = new VendingMachineResponse()
                 {
                     Message = "THANK YOU",
-                    Product = product
+                    Product = product,
                 };
+
+                if (product.Cost < this.CurrentTransaction.Balance)
+                {
+                    response.Change = new Change();
+                    response.Change.Add(Coin.Quarter);
+                }
 
                 this.Products.Remove(product);
 
