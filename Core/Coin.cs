@@ -24,6 +24,8 @@ namespace Core
                     return CoinValue.Quarter;
                 else if (this.Diameter == 21.21 && this.Width == 1.95 && this.Weight == 5)
                     return CoinValue.Nickel;
+                else if (this.Diameter == 17.91 && this.Width == 1.35 && this.Weight == 2.268)
+                    return CoinValue.Dime;
                 else
                     return CoinValue.Invalid;
             }

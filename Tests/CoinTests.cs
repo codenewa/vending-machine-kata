@@ -33,5 +33,12 @@ namespace Tests
             value.ShouldBe(CoinValue.Nickel);
         }
 
+        [Fact]
+        public void CoinreturnsDimeForValidDime()
+        {
+            var coin = new Coin(17.91, 1.35, 2.268);
+            var value = coin.Value;
+            value.ShouldBe(CoinValue.Dime);
+        }
     }
 }
