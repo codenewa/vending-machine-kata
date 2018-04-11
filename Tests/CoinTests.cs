@@ -17,5 +17,13 @@ namespace Tests
             coin.Weight.ShouldBe(5.67);
         }
 
+        [Fact]
+        public void CoinReturnsQuarterForValidQuarter()
+        {
+            var coin = new Coin(24.16, 1.75, 5.67);
+            var value = coin.Value;
+            value.ShouldBe(CoinValue.Quarter);
+        }
+
     }
 }
