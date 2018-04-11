@@ -160,5 +160,18 @@ namespace Tests
             response.Message.ShouldBe("PRICE: $1.00. INSERT COIN.");
             response.Product.Code.ShouldBe(ProductCode.Cola);
         }
+
+        [Fact]
+        public void WhenProductSelectedCostsLessThanBalanceReturnTheChange()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+
+            var response = VendingMachine.SelectProduct(ProductCode.Cola);
+
+        }
     }
 }

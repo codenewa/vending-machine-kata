@@ -183,11 +183,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Study\\vending-machine-kata\\Core\\Core.csproj",
+      "projectUniqueName": "C:\\Study\\vending-machine-kata\\Core\\Core.csproj",
       "projectName": "Core",
-      "projectPath": "c:\\Study\\vending-machine-kata\\Core\\Core.csproj",
+      "projectPath": "C:\\Study\\vending-machine-kata\\Core\\Core.csproj",
       "packagesPath": "C:\\Users\\coden\\.nuget\\packages\\",
-      "outputPath": "c:\\Study\\vending-machine-kata\\Core\\obj\\",
+      "outputPath": "C:\\Study\\vending-machine-kata\\Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
