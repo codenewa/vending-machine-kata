@@ -113,6 +113,7 @@ namespace Tests
             response.Product.Code.ShouldBe(ProductCode.Cola);
             response.Message.ShouldBe("THANK YOU");
 
+            VendingMachine.CurrentTransaction.ShouldBeNull();
         }
 
         [Fact]
@@ -127,6 +128,22 @@ namespace Tests
             response.Product.Code.ShouldBe(ProductCode.Cola);
             response.Message.ShouldBe("INSERT COIN");
 
+        }
+
+        [Fact]
+        public void WhenProductIsSelectedAndThereIsEnoughBalanceItReducestheMachineInventoryByOne()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+
+            var oldColaCount = VendingMachine.Products.Count(p => p.Code == ProductCode.Cola);
+            VendingMachine.SelectProduct(ProductCode.Cola);
+
+            var newColaCount = VendingMachine.Products.Count(p => p.Code == ProductCode.Cola);
+
+            newColaCount.ShouldBe(oldColaCount -1);
         }
     }
 }

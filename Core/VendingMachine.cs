@@ -50,6 +50,8 @@ namespace Core
                     Product = product
                 };
                 
+                this.Products.Remove(product);
+
                 this.CurrentTransaction = null;
                 
                 return response;
