@@ -14,5 +14,6 @@ namespace Tests
             var vendingMachine = new VendingMachine();
             vendingMachine.ShouldNotBeNull();
         }
+
     }
 }
