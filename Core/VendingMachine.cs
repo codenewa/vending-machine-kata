@@ -4,5 +4,6 @@ namespace Core
 {
     public class VendingMachine
     {
+       
     }
 }

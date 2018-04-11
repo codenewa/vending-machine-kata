@@ -15,5 +15,13 @@ namespace Tests
             vendingMachine.ShouldNotBeNull();
         }
 
+        [Fact]
+        public void WhenCoinIsAddedToVendingMachineItStartsATransaction()
+        {
+            var coin = new Coin(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight);
+            var vendingMachine = new VendingMachine();
+
+        }
+
     }
 }

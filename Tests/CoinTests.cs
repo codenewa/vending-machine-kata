@@ -25,9 +25,18 @@ namespace Tests
         public void CoinReturnsValueForValidCoid(double diameter, double width, double weight, CoinValue coinValue)
         {
             var coin = new Coin(diameter, width, weight);
-            var value = coin.Value;
-            value.ShouldBe(coinValue);
+            coin.Value.ShouldBe(coinValue);
         }
 
+        [Theory]
+        [InlineData(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight, 0.25d)]
+        [InlineData(Coin.NickelDiameter, Coin.NickelWidth, Coin.NickelWeight, 0.05d)]
+        [InlineData(Coin.DimeDiameter, Coin.DimeWidth, Coin.DimeWeight, 0.1d)]
+        [InlineData(Coin.QuarterDiameter, Coin.DimeWidth, Coin.NickelWeight, 0d)]
+        public void CoinReturnsMonetaryValueForValidCoid(double diameter, double width, double weight, double moneyValue)
+        {
+            var coin = new Coin(diameter, width, weight);
+            coin.MonetaryValue.ShouldBe(moneyValue);
+        }
     }
 }
