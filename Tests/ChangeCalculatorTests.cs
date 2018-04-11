@@ -45,5 +45,15 @@ namespace Tests
             change.Coins.Count(c => c.MonetaryValue == 0.25).ShouldBe(2);
             change.Coins.Count(c => c.MonetaryValue == 0.05).ShouldBe(1);
         }
+
+        [Fact]
+        public void ChangeCalculatorReturnsAQuarterANickelAndADimeFor40Cents()
+        {
+            var change = ChangeCalculator.GetChange(0.4d);
+            change.Coins.Count.ShouldBe(3);
+            change.Coins.Count(c => c.MonetaryValue == 0.25).ShouldBe(1);
+            change.Coins.Count(c => c.MonetaryValue == 0.05).ShouldBe(1);
+            change.Coins.Count(c => c.MonetaryValue == 0.1).ShouldBe(1);
+        }
     }
 }
