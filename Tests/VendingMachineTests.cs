@@ -6,14 +6,14 @@ using Core;
 
 namespace Tests
 {
-    public class VendingMachineTests
+    public class VendingMachineTests: VendingMachineTestBase
     {
+
         [Fact]
         public void VendingMachineExists()
         {
-            var vendingMachine = new VendingMachine();
-            vendingMachine.ShouldNotBeNull();
-            vendingMachine.CurrentTransaction.ShouldBeNull();
+            VendingMachine.ShouldNotBeNull();
+            VendingMachine.CurrentTransaction.ShouldBeNull();
         }
 
         [Fact]
@@ -21,9 +21,9 @@ namespace Tests
         {
             var coin = new Coin(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight);
             var vendingMachine = new VendingMachine();
-            vendingMachine.InsertCoin(new Coin(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight));
+            VendingMachine.InsertCoin(new Coin(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight));
 
-            vendingMachine.CurrentTransaction.ShouldNotBeNull();
+            VendingMachine.CurrentTransaction.ShouldNotBeNull();
         }
 
 
@@ -32,10 +32,10 @@ namespace Tests
         {
             var coin = new Coin(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight);
             var vendingMachine = new VendingMachine();
-            vendingMachine.InsertCoin(new Coin(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight));
+            VendingMachine.InsertCoin(new Coin(Coin.QuarterDiameter, Coin.QuarterWidth, Coin.QuarterWeight));
 
-            vendingMachine.CurrentTransaction.ShouldNotBeNull();
-            vendingMachine.CurrentTransaction.Balance.ShouldBe(Coin.QuarterValue);
+            VendingMachine.CurrentTransaction.ShouldNotBeNull();
+            VendingMachine.CurrentTransaction.Balance.ShouldBe(Coin.QuarterValue);
         }
 
         [Fact]
@@ -46,13 +46,19 @@ namespace Tests
             {
                 var coin = new Coin(Coin.QuarterDiameter, Coin.DimeWidth, Coin.NickelWeight);
 
-                vendingMachine.InsertCoin(coin);
+                VendingMachine.InsertCoin(coin);
             }
             catch (Exception ex)
             {
                 ex.Message.ShouldBe("InvalidCoin");
             }
-            vendingMachine.CurrentTransaction.ShouldBeNull();
+            VendingMachine.CurrentTransaction.ShouldBeNull();
+        }
+
+        [Fact]
+        public void WhenAValidCoinIsAddedToVendingMachineSecondTimeItIncreasesBalance()
+        {
+            
         }
     }
 }
