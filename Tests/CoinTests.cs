@@ -25,5 +25,13 @@ namespace Tests
             value.ShouldBe(CoinValue.Quarter);
         }
 
+        [Fact]
+        public void CoinReturnsNickelForValidNickel()
+        {
+            var coin = new Coin(21.21, 1.95, 5);
+            var value = coin.Value;
+            value.ShouldBe(CoinValue.Nickel);
+        }
+
     }
 }
