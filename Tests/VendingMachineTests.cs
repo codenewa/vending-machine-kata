@@ -3,6 +3,7 @@ using Xunit;
 using Shouldly;
 
 using Core;
+using System.Linq;
 
 namespace Tests
 {
@@ -85,7 +86,79 @@ namespace Tests
         public void WhenCurrentBalanceIsRequestedItReturnsTheCurrentBalance()
         {
             VendingMachine.InsertCoin(TestHelpers.Quarter);
-            VendingMachine.GetCurrentBalance().ShouldBe("$0.25");
+            var currentState = VendingMachine.GetCurrentState();
+            currentState.Message.ShouldBe("$0.25");
+        }
+
+        [Fact]
+        public void VendingMachineShouldHaveSelectableProducts()
+        {
+            VendingMachine.Products.ShouldNotBeNull();
+            VendingMachine.Products.ShouldNotBeEmpty();
+            VendingMachine.Products.Where(p => p.Name.Equals("Cola")).ToList().ShouldNotBeEmpty();
+            VendingMachine.Products.Where(p => p.Name.Equals("Chips")).ToList().ShouldNotBeEmpty();
+            VendingMachine.Products.Where(p => p.Name.Equals("Candy")).ToList().ShouldNotBeEmpty();
+        }
+
+
+        [Fact]
+        public void WhenProductIsSelectedAndThereIsEnoughBalanceItReturnsProductAndThankYouMessage()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+
+            var response = VendingMachine.SelectProduct(ProductCode.Cola);
+            response.Product.ShouldNotBeNull();
+            response.Product.Code.ShouldBe(ProductCode.Cola);
+            response.Message.ShouldBe("THANK YOU");
+
+            VendingMachine.CurrentTransaction.ShouldBeNull();
+        }
+
+        [Fact]
+        public void WhenProductIsSelectedAndThereIsNotEnoughBalanceItDoesNotReturnProductAndInsertCoinMessage()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+
+            var response = VendingMachine.SelectProduct(ProductCode.Cola);
+            response.Product.ShouldNotBeNull();
+            response.Product.Code.ShouldBe(ProductCode.Cola);
+            response.Message.ShouldBe("PRICE: $1.00. INSERT COIN.");
+
+        }
+
+        [Fact]
+        public void WhenProductIsSelectedAndThereIsEnoughBalanceItReducestheMachineInventoryByOne()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+
+            var oldColaCount = VendingMachine.Products.Count(p => p.Code == ProductCode.Cola);
+            VendingMachine.SelectProduct(ProductCode.Cola);
+
+            var newColaCount = VendingMachine.Products.Count(p => p.Code == ProductCode.Cola);
+
+            newColaCount.ShouldBe(oldColaCount - 1);
+        }
+
+        [Fact]
+        public void WhenGettingCurrentStateAfterNotEnoughBalanceItShowsProductAndBalanceMessage()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+
+            VendingMachine.SelectProduct(ProductCode.Cola);
+
+            var response = VendingMachine.GetCurrentState();
+            response.Message.ShouldBe("PRICE: $1.00. INSERT COIN.");
+            response.Product.Code.ShouldBe(ProductCode.Cola);
         }
     }
 }
