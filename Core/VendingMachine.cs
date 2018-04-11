@@ -25,9 +25,13 @@ namespace Core
                 CurrentTransaction.AddBalance(coin.MonetaryValue);
         }
 
-        public string GetCurrentBalance()
+        public VendingMachineResponse GetCurrentState()
         {
-            return this.CurrentTransaction.Balance.ToString("C2");
+            return new VendingMachineResponse
+            {
+                Product = null,
+                Message = CurrentTransaction?.Balance.ToString("C2") ?? "INSERT COIN"
+            };
         }
 
 
@@ -35,25 +39,28 @@ namespace Core
         {
             if (this.Products.Select(p => p.Code).Count() > 0)
             {
-                var product = this.Products.First(p=>p.Code== code);
+                var product = this.Products.First(p => p.Code == code);
 
-                if(product.Cost > this.CurrentTransaction.Balance){
-                    var errorResponse = new VendingMachineResponse(){
-                        Message="INSERT COIN",
+                if (product.Cost > this.CurrentTransaction.Balance)
+                {
+                    var errorResponse = new VendingMachineResponse()
+                    {
+                        Message = "INSERT COIN",
                         Product = product
                     };
                     return errorResponse;
                 }
 
-                var response = new VendingMachineResponse(){
-                    Message="THANK YOU",
+                var response = new VendingMachineResponse()
+                {
+                    Message = "THANK YOU",
                     Product = product
                 };
-                
+
                 this.Products.Remove(product);
 
                 this.CurrentTransaction = null;
-                
+
                 return response;
             }
             else

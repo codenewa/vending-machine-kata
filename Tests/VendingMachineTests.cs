@@ -86,7 +86,8 @@ namespace Tests
         public void WhenCurrentBalanceIsRequestedItReturnsTheCurrentBalance()
         {
             VendingMachine.InsertCoin(TestHelpers.Quarter);
-            VendingMachine.GetCurrentBalance().ShouldBe("$0.25");
+            var currentState = VendingMachine.GetCurrentState();
+            currentState.Message.ShouldBe("$0.25");
         }
 
         [Fact]
