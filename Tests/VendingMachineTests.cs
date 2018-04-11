@@ -6,7 +6,7 @@ using Core;
 
 namespace Tests
 {
-    public class VendingMachineTests: VendingMachineTestBase
+    public class VendingMachineTests : VendingMachineTestBase
     {
 
         [Fact]
@@ -63,6 +63,22 @@ namespace Tests
 
             VendingMachine.InsertCoin(TestHelpers.Quarter);
             VendingMachine.CurrentTransaction.Balance.ShouldBe(Coin.QuarterValue + Coin.QuarterValue);
+        }
+
+        [Fact]
+        public void WhenAnInvalidCoinIsAddedToVendingMachineSecondTimeItDoesNotIncreaseBalance()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.CurrentTransaction.Balance.ShouldBe(Coin.QuarterValue);
+            try
+            {
+                VendingMachine.InsertCoin(TestHelpers.InvalidCoin);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ShouldBe("InvalidCoin");
+            }
+            VendingMachine.CurrentTransaction.Balance.ShouldBe(Coin.QuarterValue);
         }
     }
 }
