@@ -1,0 +1,16 @@
+C:\Study\vending-machine-kata\Tests\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Study\vending-machine-kata\Tests\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Study\vending-machine-kata\Tests\bin\Debug\netcoreapp2.0\xunit.runner.utility.netcoreapp10.dll
+C:\Study\vending-machine-kata\Tests\bin\Debug\netcoreapp2.0\Tests.deps.json
+C:\Study\vending-machine-kata\Tests\bin\Debug\netcoreapp2.0\Tests.runtimeconfig.json
+C:\Study\vending-machine-kata\Tests\bin\Debug\netcoreapp2.0\Tests.runtimeconfig.dev.json
+C:\Study\vending-machine-kata\Tests\bin\Debug\netcoreapp2.0\Tests.dll
+C:\Study\vending-machine-kata\Tests\bin\Debug\netcoreapp2.0\Tests.pdb
+C:\Study\vending-machine-kata\Tests\bin\Debug\netcoreapp2.0\Core.dll
+C:\Study\vending-machine-kata\Tests\bin\Debug\netcoreapp2.0\Core.pdb
+C:\Study\vending-machine-kata\Tests\obj\Debug\netcoreapp2.0\Tests.csproj.CoreCompileInputs.cache
+C:\Study\vending-machine-kata\Tests\obj\Debug\netcoreapp2.0\Tests.AssemblyInfoInputs.cache
+C:\Study\vending-machine-kata\Tests\obj\Debug\netcoreapp2.0\Tests.AssemblyInfo.cs
+C:\Study\vending-machine-kata\Tests\obj\Debug\netcoreapp2.0\Tests.csproj.CopyComplete
+C:\Study\vending-machine-kata\Tests\obj\Debug\netcoreapp2.0\Tests.dll
+C:\Study\vending-machine-kata\Tests\obj\Debug\netcoreapp2.0\Tests.pdb
