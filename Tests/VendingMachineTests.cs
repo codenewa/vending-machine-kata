@@ -58,7 +58,11 @@ namespace Tests
         [Fact]
         public void WhenAValidCoinIsAddedToVendingMachineSecondTimeItIncreasesBalance()
         {
-            
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.CurrentTransaction.Balance.ShouldBe(Coin.QuarterValue);
+
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.CurrentTransaction.Balance.ShouldBe(Coin.QuarterValue + Coin.QuarterValue);
         }
     }
 }

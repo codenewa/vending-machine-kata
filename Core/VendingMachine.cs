@@ -10,7 +10,10 @@ namespace Core
         {
             if (coin.Value == CoinValue.Invalid)
                 throw new Exception("InvalidCoin");
-            CurrentTransaction = new Transaction(coin);
+            if (CurrentTransaction == null)
+                CurrentTransaction = new Transaction(coin);
+            else
+                CurrentTransaction.AddBalance(coin.MonetaryValue);
         }
     }
 }
