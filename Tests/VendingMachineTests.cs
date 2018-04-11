@@ -9,7 +9,7 @@ namespace Tests
     public class VendingMachineTests
     {
         [Fact]
-        public void Test1()
+        public void VendingMachineExists()
         {
             var vendingMachine = new VendingMachine();
             vendingMachine.ShouldNotBeNull();
