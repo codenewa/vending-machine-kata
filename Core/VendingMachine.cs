@@ -7,6 +7,7 @@ namespace Core
     public class VendingMachine
     {
         private readonly IChangeCalculator _changeCalculator;
+
         public VendingMachine(IChangeCalculator changeCalculator)
         {
             _changeCalculator = changeCalculator;
@@ -121,4 +122,6 @@ namespace Core
             }
         }
     }
+
+    
 }

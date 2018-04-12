@@ -246,5 +246,17 @@ namespace Tests
             VendingMachine.CurrentTransaction.ShouldBeNull();
             VendingMachine.GetCurrentState().Message.ShouldBe("INSERT COIN");
         }
+
+        
+        [Fact]
+        public void VendingMachineMaintainsBalanceOfCoinsItHas()
+        {
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            // VendingMachine.Register.QuarterCount.ShouldBe(1);
+            // VendingMachine.Register.DimeCount.ShouldBe(0);
+            // VendingMachine.Register.NickelCount.ShouldBe(0);
+
+
+        }
     }
 }
