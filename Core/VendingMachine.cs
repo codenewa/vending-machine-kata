@@ -6,6 +6,13 @@ namespace Core
 {
     public class VendingMachine
     {
+        private readonly IChangeCalculator _changeCalculator;
+        public VendingMachine(IChangeCalculator changeCalculator)
+        {
+            _changeCalculator = changeCalculator;
+            Products = new List<Product>();
+            InitializeMachineWithProducts();
+        }
         public Transaction CurrentTransaction { get; set; }
         private Product CurrentSelectedProduct { get; set; }
         public IList<Product> Products { get; set; }
@@ -28,7 +35,7 @@ namespace Core
         public VendingMachineResponse GetCurrentState()
         {
             var message = this.CurrentTransaction.Balance.ToString("C2");
-            if(this.CurrentSelectedProduct != null)
+            if (this.CurrentSelectedProduct != null)
                 message = $"PRICE: {CurrentSelectedProduct.Cost.ToString("C2")}. INSERT COIN.";
 
             return new VendingMachineResponse
@@ -59,8 +66,13 @@ namespace Core
                 var response = new VendingMachineResponse()
                 {
                     Message = "THANK YOU",
-                    Product = product
+                    Product = product,
                 };
+
+                if (product.Cost < this.CurrentTransaction.Balance)
+                {
+                    response.Change = _changeCalculator.GetChange(CurrentTransaction.Balance - product.Cost);
+                }
 
                 this.Products.Remove(product);
 

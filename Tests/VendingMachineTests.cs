@@ -4,6 +4,7 @@ using Shouldly;
 
 using Core;
 using System.Linq;
+using Moq;
 
 namespace Tests
 {
@@ -159,6 +160,29 @@ namespace Tests
             var response = VendingMachine.GetCurrentState();
             response.Message.ShouldBe("PRICE: $1.00. INSERT COIN.");
             response.Product.Code.ShouldBe(ProductCode.Cola);
+        }
+
+        [Fact]
+        public void WhenProductSelectedCostsLessThanBalanceReturnTheChange()
+        {
+
+            var mockedChange = new Change();
+            mockedChange.Add(TestHelpers.Quarter);
+            
+            var mockedChangeCalculator = new Mock<IChangeCalculator>();
+            mockedChangeCalculator.Setup(m=>m.GetChange(It.IsAny<double>())).Returns(mockedChange);
+
+            VendingMachine = new VendingMachine(mockedChangeCalculator.Object);
+
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+
+            var response = VendingMachine.SelectProduct(ProductCode.Cola);
+
+            response.Change.Coins.Count.ShouldBe(1);
         }
     }
 }
