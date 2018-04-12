@@ -185,6 +185,47 @@ namespace Tests
             response.Change.Coins.Count.ShouldBe(1);
         }
 
+
+        [Fact]
+        public void WhenProductIsOutOfStockVendingMessageDisplaysOutOfStockMessage()
+        {
+            BuyAllColas(VendingMachine);
+
+            VendingMachine.Products.Count(p => p.Code == ProductCode.Cola).ShouldBe(0);
+
+            var response = VendingMachine.SelectProduct(ProductCode.Cola);
+            response.Product.ShouldBeNull();
+            response.Message.ShouldBe("SOLD OUT");
+        }
+
+        [Fact]
+        public void WhenStateIsTakenAfterProductSoldOutIsShownItWillShowTheCurrentBalance()
+        {
+            BuyAllColas(VendingMachine);
+
+            var response = VendingMachine.GetCurrentState();
+            response.Message.ShouldBe("INSERT COIN");
+        }
+
+
+        private void BuyAllColas(VendingMachine vendingMachine)
+        {
+            BuyCola(vendingMachine);
+            BuyCola(vendingMachine);
+            BuyCola(vendingMachine);
+            BuyCola(vendingMachine);
+            BuyCola(vendingMachine);
+        }
+
+        private void BuyCola(VendingMachine vendingMachine)
+        {
+            vendingMachine.InsertCoin(TestHelpers.Quarter);
+            vendingMachine.InsertCoin(TestHelpers.Quarter);
+            vendingMachine.InsertCoin(TestHelpers.Quarter);
+            vendingMachine.InsertCoin(TestHelpers.Quarter);
+
+            vendingMachine.SelectProduct(ProductCode.Cola);
+        }
         [Fact]
         public void WhenVendorCancelsMachineReturnsAllCoins()
         {
