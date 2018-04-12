@@ -168,9 +168,9 @@ namespace Tests
 
             var mockedChange = new Change();
             mockedChange.Add(TestHelpers.Quarter);
-            
+
             var mockedChangeCalculator = new Mock<IChangeCalculator>();
-            mockedChangeCalculator.Setup(m=>m.GetChange(It.IsAny<double>())).Returns(mockedChange);
+            mockedChangeCalculator.Setup(m => m.GetChange(It.IsAny<double>())).Returns(mockedChange);
 
             VendingMachine = new VendingMachine(mockedChangeCalculator.Object);
 
@@ -183,6 +183,27 @@ namespace Tests
             var response = VendingMachine.SelectProduct(ProductCode.Cola);
 
             response.Change.Coins.Count.ShouldBe(1);
+        }
+
+        [Fact]
+        public void WhenVendorCancelsMachineReturnsAllCoins()
+        {
+            var mockedChange = new Change();
+            mockedChange.Add(TestHelpers.Quarter);
+
+            var mockedChangeCalculator = new Mock<IChangeCalculator>();
+            mockedChangeCalculator.Setup(m => m.GetChange(It.IsAny<double>())).Returns(mockedChange);
+
+            VendingMachine = new VendingMachine(mockedChangeCalculator.Object);
+
+            VendingMachine.InsertCoin(TestHelpers.Quarter);
+            var response = VendingMachine.ReturnCoins();
+
+            response.ShouldNotBeNull();
+            response.Change.Coins.Count.ShouldBe(1);
+
+            VendingMachine.CurrentTransaction.ShouldBeNull();
+            VendingMachine.GetCurrentState().Message.ShouldBe("INSERT COIN");
         }
     }
 }

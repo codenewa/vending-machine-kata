@@ -34,7 +34,7 @@ namespace Core
 
         public VendingMachineResponse GetCurrentState()
         {
-            var message = this.CurrentTransaction.Balance.ToString("C2");
+            var message = this.CurrentTransaction?.Balance.ToString("C2") ?? "INSERT COIN";
             if (this.CurrentSelectedProduct != null)
                 message = $"PRICE: {CurrentSelectedProduct.Cost.ToString("C2")}. INSERT COIN.";
 
@@ -85,6 +85,16 @@ namespace Core
                 return null;
         }
 
+        public VendingMachineResponse ReturnCoins()
+        {
+            var response = new VendingMachineResponse();
+            response.Product = null;
+            response.Change = _changeCalculator.GetChange(this.CurrentTransaction.Balance);
+
+            this.CurrentTransaction = null;
+            this.CurrentSelectedProduct = null;
+            return response;
+        }
 
         private void InitializeMachineWithProducts()
         {
