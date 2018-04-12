@@ -34,7 +34,8 @@ namespace Core
 
         public VendingMachineResponse GetCurrentState()
         {
-            var message = this.CurrentTransaction.Balance.ToString("C2");
+            var message = this.CurrentTransaction?.Balance.ToString("C2") ?? "INSERT COIN";
+
             if (this.CurrentSelectedProduct != null)
                 message = $"PRICE: {CurrentSelectedProduct.Cost.ToString("C2")}. INSERT COIN.";
 
@@ -48,7 +49,7 @@ namespace Core
 
         public VendingMachineResponse SelectProduct(ProductCode code)
         {
-            if (this.Products.Select(p => p.Code).Count() > 0)
+            if (this.Products.Count(p => p.Code == code) > 0)
             {
                 var product = this.Products.First(p => p.Code == code);
                 CurrentSelectedProduct = product;
@@ -82,7 +83,14 @@ namespace Core
                 return response;
             }
             else
-                return null;
+            {
+                var response = new VendingMachineResponse()
+                {
+                    Message = "SOLD OUT",
+                    Product = null
+                };
+                return response;
+            };
         }
 
 

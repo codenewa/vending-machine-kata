@@ -15,4 +15,5 @@ public class VendingMachineTestBase : IDisposable
         VendingMachine = null;
         ChangeCalculator = null;
     }
+
 }
