@@ -6,6 +6,13 @@ namespace Core
 {
     public class VendingMachine
     {
+        private readonly IChangeCalculator _changeCalculator;
+        public VendingMachine(IChangeCalculator changeCalculator)
+        {
+            _changeCalculator = changeCalculator;
+            Products = new List<Product>();
+            InitializeMachineWithProducts();
+        }
         public Transaction CurrentTransaction { get; set; }
         private Product CurrentSelectedProduct { get; set; }
         public IList<Product> Products { get; set; }
@@ -64,8 +71,7 @@ namespace Core
 
                 if (product.Cost < this.CurrentTransaction.Balance)
                 {
-                    response.Change = new Change();
-                    response.Change.Add(Coin.Quarter);
+                    response.Change = _changeCalculator.GetChange(CurrentTransaction.Balance - product.Cost);
                 }
 
                 this.Products.Remove(product);
