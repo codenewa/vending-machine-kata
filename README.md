@@ -1,8 +1,4 @@
 # vending-machine-kata
 
-Feature1: Accept Coins
-----------------------
+[![Build status](https://ci.appveyor.com/api/projects/status/u57qr7qw7frxixbg/branch/master?svg=true)](https://ci.appveyor.com/project/codenewa/vending-machine-kata/branch/master)
 
-As a vendor
-I want a vending machine that accepts coins
-So that I can collect money from the customer
