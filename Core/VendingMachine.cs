@@ -93,6 +93,16 @@ namespace Core
             };
         }
 
+        public VendingMachineResponse ReturnCoins()
+        {
+            var response = new VendingMachineResponse();
+            response.Product = null;
+            response.Change = _changeCalculator.GetChange(this.CurrentTransaction.Balance);
+
+            this.CurrentTransaction = null;
+            this.CurrentSelectedProduct = null;
+            return response;
+        }
 
         private void InitializeMachineWithProducts()
         {
