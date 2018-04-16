@@ -1,7 +1,6 @@
 # vending-machine-kata
 
 [![Build status](https://ci.appveyor.com/api/projects/status/u57qr7qw7frxixbg/branch/master?svg=true)](https://ci.appveyor.com/project/codenewa/vending-machine-kata/branch/master)
-
 Language: C#
 
 SDK: [.net core 2.1.103](https://www.microsoft.com/net/learn/get-started/windows)
@@ -18,4 +17,5 @@ Run the following command:
 
 User story not attempted: 
 Exact Change Only
+
 
